@@ -29,6 +29,7 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
+import axios from "axios";
  
 const navListMenuItems = [
   {
@@ -204,6 +205,7 @@ export function NavbarWithMegaMenu() {
   };
     
     const handleLogout = async() =>{
+      console.log("clicked");
       try {
         await axios.post('http://localhost:8800/api/auth/logout');
     
