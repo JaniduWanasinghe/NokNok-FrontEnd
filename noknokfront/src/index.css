@@ -17,3 +17,6 @@ body{
   font-variation-settings:
     "slnt" 0;
 }
+a{
+  text-decoration-style: none;
+}
