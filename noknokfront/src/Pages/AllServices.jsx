@@ -9,7 +9,11 @@ export default function AllServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:8800/api/service');
+        const response = await axios.get('http://localhost:8800/api/service',{
+            params: {
+                userId: '001', 
+              },
+        });
         const servicesData = response.data;
 
         setServices(servicesData);
@@ -32,7 +36,7 @@ export default function AllServices() {
   }));
 
   return (
-    <div className='w-full flex justify-center items-center mt-16'>
+    <div className='w-full flex justify-center items-center mt-16 p-5'>
       {loading ? (
         <p>Loading...</p>
       ) : (

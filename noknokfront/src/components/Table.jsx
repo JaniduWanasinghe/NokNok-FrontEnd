@@ -23,21 +23,21 @@ export function TableWithStripedRows({TABLE_ROWS}) {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ name, job, date }, index) => (
-            <tr key={name} className="even:bg-blue-gray-50/50">
+          {TABLE_ROWS.map(({ title, id, description }, index) => (
+            <tr key={title} className="even:bg-blue-gray-50/50">
               <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {name}
+                  {title}
                 </Typography>
               </td>
               <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {job}
+                  {id}
                 </Typography>
               </td>
               <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {date}
+                  {description}
                 </Typography>
               </td>
               <td className="p-4">

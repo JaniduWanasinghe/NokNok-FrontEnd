@@ -10,6 +10,7 @@ import Login from './Pages/Login'
 import ServiceForm from './Pages/SeviceForm'
 import Service from './Pages/Service'
 import AllServices from './Pages/AllServices'
+import SignUp from './Pages/SignUp'
 
 
 function App() {
@@ -32,6 +33,10 @@ function App() {
       {
         path:"/serive/all",element:
   <AllServices/>
+      },
+      {
+        path:"/signup",element:
+  <SignUp/>
       }
     ]
     }])
