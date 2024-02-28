@@ -16,7 +16,6 @@ const ServiceForm = ({ onSubmit }) => {
     const [catid, setCatId] = useState('');
     const [cat, setCat] = useState('');
     const [price, setPrice] = useState('');
-    const [cover, setCover] = useState('');
     const [images, setImages] = useState([]);
     const [shortTitle, setShortTitle] = useState('');
     const [shortDesc, setShortDesc] = useState('');
@@ -31,18 +30,20 @@ const ServiceForm = ({ onSubmit }) => {
         formData.append('catid', catid);
         formData.append('cat', cat);
         formData.append('price', price);
-        formData.append('cover', cover);
         formData.append('shortTitle', shortTitle);
         formData.append('shortDesc', shortDesc);
         formData.append('deliveryTime', deliveryTime);
   
-        // Append each file to the formData
-        images.forEach((image, index) => {
-          formData.append(`image${index + 1}`, image);
-        });
+       
+          formData.append('images[]', images);
+    
   
         // Assume you have a server endpoint for creating a service
-        const response = await axios.post('http://localhost:8800/api/services', formData);
+        const response = await axios.post('http://localhost:8800/api/service', formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
   
         const data = response.data;
   
@@ -156,19 +157,7 @@ const ServiceForm = ({ onSubmit }) => {
             onChange={(e) => setPrice(e.target.value)}
           />
 
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Cover Image URL
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Cover Image URL"
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            value={cover}
-            onChange={(e) => setCover(e.target.value)}
-          />
+       
 
 <Typography variant="h6" color="blue-gray" className="-mb-3">
             Images (Select multiple files)

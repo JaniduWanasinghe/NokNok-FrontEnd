@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Login from './Pages/Login'
 import ServiceForm from './Pages/SeviceForm'
 import Service from './Pages/Service'
+import AllServices from './Pages/AllServices'
 
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
       {
         path:"/serive/add",element:
   <Service/>
+      },
+      {
+        path:"/serive/all",element:
+  <AllServices/>
       }
     ]
     }])
