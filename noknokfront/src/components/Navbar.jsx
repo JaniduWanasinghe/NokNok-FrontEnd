@@ -79,13 +79,69 @@ const navListMenuItems = [
   },
 ];
  
+
+const navListMenuItemsProvider = [
+  {
+    title: "Create a Service",
+    description: "Create a new service",
+    icon: SquaresPlusIcon,
+    link:"/service/create"
+  },
+  {
+    title: "All Services",
+    description: "Get all services",
+    icon: UserGroupIcon,
+  },
+  {
+    title: "service3",
+    description: "Find the perfect solution for your needs.",
+    icon: Bars4Icon,
+  },
+  {
+    title: "Services4",
+    description: "Learn how we can help you achieve your goals.",
+    icon: SunIcon,
+  },
+  {
+    title: "service5",
+    description: "Reach out to us for assistance or inquiries",
+    icon: GlobeAmericasIcon,
+  },
+  {
+    title: "Contact",
+    description: "Find the perfect solution for your needs.",
+    icon: PhoneIcon,
+  },
+  {
+    title: "News",
+    description: "Read insightful articles, tips, and expert opinions.",
+    icon: NewspaperIcon,
+  },
+  {
+    title: "Products",
+    description: "Find the perfect solution for your needs.",
+    icon: RectangleGroupIcon,
+  },
+  {
+    title: "Special Offers",
+    description: "Explore limited-time deals and bundles",
+    icon: TagIcon,
+  },
+];
+ 
+
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+const user=JSON.parse(localStorage.getItem('user'))
+let ListItems=navListMenuItems
 
-  const renderItems = navListMenuItems.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
+if(user.Role==='provider'){
+  ListItems=navListMenuItemsProvider
+}
+ const renderItems =  ListItems.map(
+    ({ link="#",icon, title, description }, key) => (
+      <a href={link} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}
