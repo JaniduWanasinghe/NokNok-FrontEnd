@@ -11,6 +11,7 @@ import ServiceForm from './Pages/SeviceForm'
 import Service from './Pages/Service'
 import AllServices from './Pages/AllServices'
 import SignUp from './Pages/SignUp'
+import SingleService from './Pages/SingleService'
 
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
       {
         path:"/signup",element:
   <SignUp/>
+      },
+      {
+        path:"/service/singleservice",element:
+  <SingleService/>
       }
     ]
     }])
