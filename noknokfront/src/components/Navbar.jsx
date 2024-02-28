@@ -29,6 +29,7 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
+import axios from "axios";
  
 const navListMenuItems = [
   {
@@ -81,6 +82,7 @@ const navListMenuItems = [
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
   const renderItems = navListMenuItems.map(
     ({ icon, title, description }, key) => (
       <a href="#" key={key}>
@@ -197,6 +199,25 @@ function NavList() {
 }
  
 export function NavbarWithMegaMenu() {
+  const isLoggedIn = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return !!user; 
+  };
+    
+    const handleLogout = async() =>{
+      console.log("clicked");
+      try {
+        await axios.post('http://localhost:8800/api/auth/logout');
+    
+        localStorage.removeItem('user');
+    
+        // Redirect to the login page or homepage
+        navigate('/login');
+      } catch (error) {
+        console.error('Logout failed', error);
+      }
+    };
+
   const [openNav, setOpenNav] = React.useState(false);
  
   React.useEffect(() => {
@@ -214,12 +235,26 @@ export function NavbarWithMegaMenu() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue">
-            Log In
-          </Button>
-          <Button variant="gradient" className="bg-black text-white" size="sm">
-            Sign In
-          </Button>
+          {isLoggedIn() ? (
+            <>
+              <span className="text-sm text-blue-gray-500 mr-2">
+                {/* Display user name here */}
+                {JSON.parse(localStorage.getItem('user')).username}
+              </span>
+              <Button variant="text" size="sm" color="blue" onClick={handleLogout}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="text" size="sm" color="blue">
+                Log In
+              </Button>
+              <Button variant="gradient" className="bg-black text-white" size="sm">
+                Sign In
+              </Button>
+            </>
+          )}
         </div>
         <IconButton
           variant="text"

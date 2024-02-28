@@ -3,18 +3,29 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { NavbarWithMegaMenu } from './components/Navbar'
-import { FooterWithLogo } from './components/Footer'
-import HeroSection from './components/HeroSection'
+import HomeLayout from './Layouts/HomeLayout'
+import Home from './Pages/Home'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Login from './Pages/Login'
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const router= createBrowserRouter(
+    [{
+      path:"/",
+      element: <HomeLayout/>,
+      children:[{
+        path:"/",element:
+  <Home/>
+      },
+      {
+        path:"/login",element:
+  <Login/>
+      }
+    ]
+    }])
   return (
-    <>
-     <NavbarWithMegaMenu/>
-     <HeroSection/>
-     <FooterWithLogo/>
-    </>
+    <RouterProvider router={router}/>
   )
 }
 
