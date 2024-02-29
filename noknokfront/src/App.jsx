@@ -12,6 +12,8 @@ import Service from './Pages/Service'
 import AllServices from './Pages/AllServices'
 import SignUp from './Pages/SignUp'
 import SingleService from './Pages/SingleService'
+import AddCategory from './Pages/AddCategory'
+
 
 
 function App() {
@@ -42,6 +44,10 @@ function App() {
       {
         path:"/service/singleservice",element:
   <SingleService/>
+      },
+      {
+        path:"/Category/add",element:
+  <AddCategory/>
       }
     ]
     }])
