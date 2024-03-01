@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TableWithStripedRows } from '../components/Table';
+import newRequest from '../utils/newRequest';
 
 export default function AllServices() {
   const [services, setServices] = useState([]);
@@ -9,11 +10,12 @@ export default function AllServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:8800/api/service',{
+        const response =await newRequest.get('/service',{
             params: {
                 userId: '001', 
               },
         });
+        console.log(response)
         const servicesData = response.data;
 
         setServices(servicesData);

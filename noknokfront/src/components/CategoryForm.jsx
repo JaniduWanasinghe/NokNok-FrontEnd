@@ -23,7 +23,7 @@ export function CreateCategoryForm() {
       formData.append('cover', cover);
       formData.append('scount', scount);
 
-      const response = await axios.post('http://localhost:8800/api/categories', formData, {
+      const response = await axios.post('http://localhost:8800/api/category', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,10 +13,12 @@ import AllServices from './Pages/AllServices'
 import SignUp from './Pages/SignUp'
 import SingleService from './Pages/SingleService'
 import AddCategory from './Pages/AddCategory'
+import io from 'socket.io-client';
 
 
 
 function App() {
+
   const router= createBrowserRouter(
     [{
       path:"/",
@@ -52,7 +54,9 @@ function App() {
     ]
     }])
   return (
+    <> 
     <RouterProvider router={router}/>
+    </>
   )
 }
 

@@ -135,10 +135,12 @@ function NavListMenu() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 const user=JSON.parse(localStorage.getItem('user'))
 let ListItems=navListMenuItems
-
-if(user.Role==='provider'){
-  ListItems=navListMenuItemsProvider
+if(user){
+  if(user.Role==='provider'){
+    ListItems=navListMenuItemsProvider
+  }
 }
+
  const renderItems =  ListItems.map(
     ({ link="#",icon, title, description }, key) => (
       <a href={link} key={key}>

@@ -8,6 +8,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import newRequest from '../utils/newRequest';
 
 export function SimpleLoginForm() {
   const navigate = useNavigate();
@@ -16,12 +17,13 @@ export function SimpleLoginForm() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8800/api/auth/login', {
+      const response = await newRequest.post('/auth/login', {
         username,
         password,
       });
-
+   
       const data = response.data;
+      
 console.log(data);
       // Assume `data` contains user information from the server response
       const userInfo= data;
