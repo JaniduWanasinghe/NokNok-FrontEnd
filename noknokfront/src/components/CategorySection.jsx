@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import newRequest from '../utils/newRequest';
 import { CategoryCard } from './CategoryCard';
+import TitleText, { TitleText2 } from './TitleText';
 
 export default function CategorySection() {
     const [categories, setCategories] = useState([]);
@@ -22,13 +23,10 @@ export default function CategorySection() {
       fetchCategories();
     }, []); 
   return (
-    <div>
-        <h1>
-        Get a Service
-        </h1>
-        <h3>High Quality Solutions To You</h3>
-
-        <div className='flex flex-wrap gap-5'>
+    <div className='p-5 pl-10 mt-14'>
+        <TitleText title={" Get a Service"}/>
+      <TitleText2 title={"High Quality Solutions To You"}/>
+        <div className='flex flex-wrap gap-5 mt-24'>
         {categories.map((category) => (
         <CategoryCard key={category._id} cover={category.cover} title={category.title} Scount={category.scount}/>
         ))}

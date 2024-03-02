@@ -16,6 +16,7 @@ import AddCategory from './Pages/AddCategory'
 import io from 'socket.io-client';
 import Conversastions from './Pages/Conversastions'
 import Chat from './Pages/Chat'
+import Categories from './Pages/Categories'
 const socket = io('http://localhost:8800'); // Update with your server URL
 
 
@@ -64,6 +65,10 @@ function App() {
       {
         path:"/Category/add",element:
   <AddCategory/>
+      },
+      {
+        path:"/Categories",element:
+  <Categories/>
       },
       {
         path:"/Conversations",element:
