@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -13,8 +13,14 @@ import {
   Textarea,
 } from "@material-tailwind/react";
  
-export function HireserviceDialogBox({status,handleopen}) {
+export function HireserviceDialogBox({status,handleopen,handleSwitch,setTotal,rate}) {
 const open=status 
+const [hours, setHours] = useState(0);
+console.log(rate)
+const handleSubmit=(e)=>{
+handleSwitch()
+}
+
   return (
     <>
     
@@ -24,6 +30,8 @@ const open=status
         handler={handleopen}
         className="bg-transparent shadow-none"
       >
+                    <form onSubmit={handleSubmit}>
+
         <Card className="mx-auto w-full max-w-[24rem]">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
@@ -39,24 +47,38 @@ const open=status
             <Typography className="-mb-2" variant="h6">
               Your Location
             </Typography>
-            <Input label="Location" size="lg" />
+            <Input label="Location" size="lg" required />
             <Typography className="-mb-2" variant="h6">
               No of Hours
             </Typography>
-            <Input label="Hours" size="lg" />
-            <Typography className="-mb-2" variant="h6">
-              Your Message
+            <Input
+              label="Hours"
+              size="lg"
+              value={hours}
+              required
+              onChange={(e) => {
+                
+              setHours(e.target.value)
+            setTotal(rate*e.target.value)
+            }}
+            />      
+                  <Typography className="-mb-2" variant="h6">
+              Your Note
             </Typography>
             <Textarea label="message" size="lg" />
-          
+            <Typography className="mt-2" variant="h6">
+             Rs {rate*hours}
+            </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={handleopen} fullWidth>
+            <Button variant="gradient" onClick={handleSubmit} fullWidth>
 Hire Service         </Button>
            
-          
+
           </CardFooter>
+
         </Card>
+        </form>
       </Dialog>
     </>
   );

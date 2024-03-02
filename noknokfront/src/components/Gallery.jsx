@@ -1,6 +1,10 @@
 import React from "react";
-export function FeaturedImageGallery() {
-  const data = [
+import { getPublicUrl } from "../utils/PublicUrl";
+export function FeaturedImageGallery({images}) {
+  const data = Array.isArray(images)
+  ? images.map((image) => getPublicUrl(image))
+  : [];
+  const dataq = [
     {
       imgelink:
         "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
@@ -24,8 +28,7 @@ export function FeaturedImageGallery() {
   ];
  
   const [active, setActive] = React.useState(
-    "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  );
+data[0]  );
  
   return (
     <div className="grid gap-4">
