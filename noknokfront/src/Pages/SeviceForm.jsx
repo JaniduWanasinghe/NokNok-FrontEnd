@@ -8,8 +8,15 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import newRequest from '../utils/newRequest';
+import { Navigate } from 'react-router-dom';
+import { GetUser } from '../utils/handleUser';
+import { useNavigate } from 'react-router-dom';
+
 
 const ServiceForm = ({ onSubmit }) => {
+  const navigate = useNavigate();
+
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [totalStars, setTotalStars] = useState(0);
@@ -22,6 +29,7 @@ const ServiceForm = ({ onSubmit }) => {
     const [deliveryTime, setDeliveryTime] = useState(0);
   
     const handleServiceSubmit = async () => {
+
       try {
         const formData = new FormData();
         formData.append('title', title);
@@ -33,30 +41,32 @@ const ServiceForm = ({ onSubmit }) => {
         formData.append('shortTitle', shortTitle);
         formData.append('shortDesc', shortDesc);
         formData.append('deliveryTime', deliveryTime);
-  
-       
-          formData.append('images[]', images);
+        formData.append('userId', GetUser()._id);
+        formData.append('role', GetUser().Role);
+
+
+        for (let i = 0; i < images.length; i++) {
+          formData.append('images', images[i]);
+        }
     
   
         // Assume you have a server endpoint for creating a service
-        const response = await axios.post('http://localhost:8800/api/service', formData,{
+        const response = await newRequest.post('/service', formData,{
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         });
   
         const data = response.data;
-  
-        // Assume `data` contains service information from the server response
-        const serviceInfo = data;
-        // Perform any additional logic or handling as needed
-  
-        // Pass the service information to the parent component
-        onSubmit(serviceInfo);
+        console.log(data);
+        navigate('/');
+    
       } catch (error) {
         // Handle error, e.g., show an error message
         console.error('Service creation failed', error);
       }
+ 
+
     };
   
     // Handle file selection for the images

@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
- 
-export function BlockLevelButton() {
-  return <Button fullWidth>block level button</Button>;
+
+export function BlockLevelButton( {text,handleopen}) {
+  return <Button fullWidth onClick={handleopen} >{text}</Button>;
 }
