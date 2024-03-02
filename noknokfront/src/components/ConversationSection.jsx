@@ -48,6 +48,7 @@ setCdata(data)
       <Card className="w-96">
         <List>
             {Cdata.map((con)=>(
+                <a href={`/Conversations/chat/${con._id}`}>
  <ListItem>
  <ListItemPrefix>
    <Avatar variant="circular" alt="candice" src="https://docs.material-tailwind.com/img/face-1.jpg" />
@@ -60,6 +61,7 @@ setCdata(data)
 {con.lastMessage}   </Typography>
  </div>
 </ListItem>
+</a>
             )
             )}
          

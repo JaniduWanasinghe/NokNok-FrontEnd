@@ -80,7 +80,7 @@ function App() {
   <Conversastions/>
       },
       {
-        path:"/Conversations/chat/",element:
+        path:"/Conversations/chat/:id",element:
   <Chat/>
       }
     ]
