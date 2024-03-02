@@ -13,7 +13,7 @@ export function InputWithButton({label,btntext}) {
         value={name}
         color="purple"
         onChange={onChange}
-        className="pr-20 border-purple-800 min-h-12  p-10"
+        className="pr-20 border-purple-800 min-h-12  bg-white p-10"
         containerProps={{
           className: "min-w-0",
         }} 

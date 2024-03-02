@@ -11,11 +11,13 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
+  Badge,
 } from "@material-tailwind/react";
 import {
   ChevronDownIcon,
   Bars3Icon,
   XMarkIcon,
+  EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 import {
   Bars4Icon,
@@ -26,7 +28,7 @@ import {
   SquaresPlusIcon,
   SunIcon,
   TagIcon,
-  UserGroupIcon,
+  UserGroupIcon,ChartBarIcon
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
 import axios from "axios";
@@ -79,13 +81,71 @@ const navListMenuItems = [
   },
 ];
  
+
+const navListMenuItemsProvider = [
+  {
+    title: "Create a Service",
+    description: "Create a new service",
+    icon: SquaresPlusIcon,
+    link:"/service/create"
+  },
+  {
+    title: "All Services",
+    description: "Get all services",
+    icon: UserGroupIcon,
+  },
+  {
+    title: "service3",
+    description: "Find the perfect solution for your needs.",
+    icon: Bars4Icon,
+  },
+  {
+    title: "Services4",
+    description: "Learn how we can help you achieve your goals.",
+    icon: SunIcon,
+  },
+  {
+    title: "service5",
+    description: "Reach out to us for assistance or inquiries",
+    icon: GlobeAmericasIcon,
+  },
+  {
+    title: "Contact",
+    description: "Find the perfect solution for your needs.",
+    icon: PhoneIcon,
+  },
+  {
+    title: "News",
+    description: "Read insightful articles, tips, and expert opinions.",
+    icon: NewspaperIcon,
+  },
+  {
+    title: "Products",
+    description: "Find the perfect solution for your needs.",
+    icon: RectangleGroupIcon,
+  },
+  {
+    title: "Special Offers",
+    description: "Explore limited-time deals and bundles",
+    icon: TagIcon,
+  },
+];
+ 
+
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+const user=JSON.parse(localStorage.getItem('user'))
+let ListItems=navListMenuItems
+if(user){
+  if(user.Role==='provider'){
+    ListItems=navListMenuItemsProvider
+  }
+}
 
-  const renderItems = navListMenuItems.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
+ const renderItems =  ListItems.map(
+    ({ link="#",icon, title, description }, key) => (
+      <a href={link} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}
@@ -228,7 +288,7 @@ export function NavbarWithMegaMenu() {
   }, []);
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
+    <Navbar className="mx-auto   py-2">
       <div className="flex items-center justify-between text-blue-gray-900">
     <Logo/>
         <div className="hidden lg:block">
@@ -237,6 +297,13 @@ export function NavbarWithMegaMenu() {
         <div className="hidden gap-2 lg:flex">
           {isLoggedIn() ? (
             <>
+            <div className="flex items-center gap-8">
+             <Badge >
+        <IconButton>
+          <EnvelopeIcon className="h-4 w-4" />
+        </IconButton>
+      </Badge>
+      
               <span className="text-sm text-blue-gray-500 mr-2">
                 {/* Display user name here */}
                 {JSON.parse(localStorage.getItem('user')).username}
@@ -244,6 +311,7 @@ export function NavbarWithMegaMenu() {
               <Button variant="text" size="sm" color="blue" onClick={handleLogout}>
                 Logout
               </Button>
+              </div>
             </>
           ) : (
             <>

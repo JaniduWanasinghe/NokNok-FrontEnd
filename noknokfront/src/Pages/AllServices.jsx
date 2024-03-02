@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TableWithStripedRows } from '../components/Table';
+import newRequest from '../utils/newRequest';
+import { GetUser } from '../utils/handleUser';
+import { getPublicUrl } from '../utils/PublicUrl';
 
 export default function AllServices() {
   const [services, setServices] = useState([]);
@@ -9,11 +12,12 @@ export default function AllServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:8800/api/service',{
+        const response =await newRequest.get('/service',{
             params: {
-                userId: '001', 
+                userId: GetUser()._id, 
               },
         });
+        console.log(response)
         const servicesData = response.data;
 
         setServices(servicesData);
@@ -31,12 +35,14 @@ export default function AllServices() {
     // Adjust this based on your service model structure
     id: service._id,
     title: service.title,
-    description: service.desc,
+    description: service.shortDesc,
+    cover:getPublicUrl(service.cover)
     // ... add other fields as needed
   }));
 
   return (
-    <div className='w-full flex justify-center items-center mt-16 p-5'>
+    <div className='w-full flex flex-col justify-center items-center mt-16 p-5'>
+      <h1 className='text-2xl font-bold text-center mb-8'>All Services</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (

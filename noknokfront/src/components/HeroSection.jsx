@@ -5,6 +5,7 @@ import { InputWithButton } from './Inputbox';
 export default function HeroSection() {
     const stars = Array(5).fill(null);
   return (
+    <div className="">
     <div className='flex lg:flex-row flex-col-reverse h-fit  items-center justify-center  p-5 mt-16 mb-16 bg-white'>
         <div className='  lg:w-3/5 overflow-hidden flex flex-col  justify-center  p-5'>
 <div className='flex mb-8 items-center '>
@@ -26,6 +27,7 @@ With the world's #1  Home Service Platform
         <div className='h-full lg:w-2/5 w-full overflow-hidden pr-5'>
 <img src={heroimg} alt="" className='w-full ' />
         </div>
+    </div>
     </div>
   )
 }
