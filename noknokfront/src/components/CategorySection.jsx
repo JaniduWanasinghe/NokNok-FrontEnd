@@ -28,7 +28,9 @@ export default function CategorySection() {
       <TitleText2 title={"High Quality Solutions To You"}/>
         <div className='flex flex-wrap gap-5 mt-24'>
         {categories.map((category) => (
+          <a href={`/services/${category._id}`}>
         <CategoryCard key={category._id} cover={category.cover} title={category.title} Scount={category.scount}/>
+        </a>
         ))}
         </div>
     </div>

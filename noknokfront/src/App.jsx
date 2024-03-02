@@ -17,6 +17,7 @@ import io from 'socket.io-client';
 import Conversastions from './Pages/Conversastions'
 import Chat from './Pages/Chat'
 import Categories from './Pages/Categories'
+import Services from './Pages/Services'
 const socket = io('http://localhost:8800'); // Update with your server URL
 
 
@@ -47,19 +48,23 @@ function App() {
   <Login/>
       },
       {
-        path:"/serive/add",element:
+        path:"/service/add",element:
   <Service/>
       },
       {
-        path:"/serive/all",element:
+        path:"/service/all",element:
   <AllServices/>
+      },
+      {
+        path:"/services/:catid",element:
+  <Services/>
       },
       {
         path:"/signup",element:
   <SignUp/>
       },
       {
-        path:"/service/singleservice",element:
+        path:"/service/singleservice/:serviceid",element:
   <SingleService/>
       },
       {
