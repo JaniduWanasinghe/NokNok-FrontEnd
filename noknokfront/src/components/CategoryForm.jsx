@@ -7,6 +7,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import newRequest from '../utils/newRequest';
 
 export function CreateCategoryForm() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export function CreateCategoryForm() {
       formData.append('cover', cover);
       formData.append('scount', scount);
 
-      const response = await axios.post('http://localhost:8800/api/category', formData, {
+      const response = await newRequest.post('/category', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -11,11 +11,13 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
+  Badge,
 } from "@material-tailwind/react";
 import {
   ChevronDownIcon,
   Bars3Icon,
   XMarkIcon,
+  EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 import {
   Bars4Icon,
@@ -26,7 +28,7 @@ import {
   SquaresPlusIcon,
   SunIcon,
   TagIcon,
-  UserGroupIcon,
+  UserGroupIcon,ChartBarIcon
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
 import axios from "axios";
@@ -295,6 +297,13 @@ export function NavbarWithMegaMenu() {
         <div className="hidden gap-2 lg:flex">
           {isLoggedIn() ? (
             <>
+            <div className="flex items-center gap-8">
+             <Badge >
+        <IconButton>
+          <EnvelopeIcon className="h-4 w-4" />
+        </IconButton>
+      </Badge>
+      
               <span className="text-sm text-blue-gray-500 mr-2">
                 {/* Display user name here */}
                 {JSON.parse(localStorage.getItem('user')).username}
@@ -302,6 +311,7 @@ export function NavbarWithMegaMenu() {
               <Button variant="text" size="sm" color="blue" onClick={handleLogout}>
                 Logout
               </Button>
+              </div>
             </>
           ) : (
             <>

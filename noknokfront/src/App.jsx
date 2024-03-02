@@ -14,11 +14,25 @@ import SignUp from './Pages/SignUp'
 import SingleService from './Pages/SingleService'
 import AddCategory from './Pages/AddCategory'
 import io from 'socket.io-client';
+import Conversastions from './Pages/Conversastions'
+import Chat from './Pages/Chat'
+const socket = io('http://localhost:8800'); // Update with your server URL
 
 
 
 function App() {
+  const [notifications, setNotifications] = useState([]);
 
+  useEffect(() => {
+    socket.on('notification', (message) => {
+      setNotifications((prevNotifications) => [...prevNotifications, message]);
+      console.log(notifications)
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
   const router= createBrowserRouter(
     [{
       path:"/",
@@ -50,6 +64,14 @@ function App() {
       {
         path:"/Category/add",element:
   <AddCategory/>
+      },
+      {
+        path:"/Conversations",element:
+  <Conversastions/>
+      },
+      {
+        path:"/Conversations/chat/",element:
+  <Chat/>
       }
     ]
     }])
