@@ -5,8 +5,8 @@ const TABLE_HEAD = ["","Title", "Short description", "action", ""];
  
 export function TableWithStripedRows({TABLE_ROWS}) {
   return (
-    <Card className="h-full w-full overflow-scroll">
-      <table className="w-full min-w-max table-auto text-left">
+    <Card className="h-full w-full overflow-auto flex justify-center items-center">
+      <table className="w-full min-w-max table-auto text-left max-w-5xl">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
@@ -37,11 +37,7 @@ export function TableWithStripedRows({TABLE_ROWS}) {
                   {title}
                 </Typography>
               </td> 
-              <td className="p-4">
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                  {id}
-                </Typography>
-              </td>
+          
               <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
                   {description}

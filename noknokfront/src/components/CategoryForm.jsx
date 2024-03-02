@@ -8,13 +8,13 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import newRequest from '../utils/newRequest';
+import { GetUser } from '../utils/handleUser';
 
 export function CreateCategoryForm() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [cover, setCover] = useState(null); // Use null to represent no file selected
-  const [scount, setScount] = useState('');
 
   const handleCreateCategory = async () => {
     try {
@@ -22,7 +22,8 @@ export function CreateCategoryForm() {
       formData.append('title', title);
       formData.append('desc', desc);
       formData.append('cover', cover);
-      formData.append('scount', scount);
+      formData.append('scount', "0");
+      formData.append('role',GetUser().Role)
 
       const response = await newRequest.post('/category', formData, {
         headers: {
@@ -87,20 +88,6 @@ export function CreateCategoryForm() {
             onChange={(e) => setCover(e.target.files[0])}
           />
 
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Number of Services
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Number of Services"
-            type="number"
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            value={scount}
-            onChange={(e) => setScount(e.target.value)}
-          />
         </div>
 
         <Button className="mt-6 bg-blue-500" fullWidth onClick={handleCreateCategory}>
