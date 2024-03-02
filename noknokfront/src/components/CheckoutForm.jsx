@@ -46,7 +46,7 @@ function formatExpires(value) {
     .replace(/^([0-1]{1}[0-9]{1})([0-9]{1,2}).*/g, "$1/$2");
 }
  
-export default function CheckoutForm() {
+export default function CheckoutForm({total}) {
   const [type, setType] = React.useState("card");
   const [cardNumber, setCardNumber] = React.useState("");
   const [cardExpires, setCardExpires] = React.useState("");
@@ -67,8 +67,7 @@ export default function CheckoutForm() {
           )}
         </div>
         <Typography variant="h5" color="white">
-          Material Tailwind PRO
-        </Typography>
+RS:{total}        </Typography>
       </CardHeader>
       <CardBody>
         <Tabs value={type} className="overflow-visible">

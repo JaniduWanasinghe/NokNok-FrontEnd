@@ -1,5 +1,5 @@
 // components/ServiceForm.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Card,
@@ -15,6 +15,28 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ServiceForm = ({ onSubmit }) => {
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // Fetch categories when the component mounts
+    const fetchCategories = async () => {
+      try {
+        const response = await newRequest.get("/category");
+        const data =  response.data;
+
+        // Update the state with the fetched categories
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []); 
+
+
+
   const navigate = useNavigate();
 
     const [title, setTitle] = useState('');
@@ -27,7 +49,8 @@ const ServiceForm = ({ onSubmit }) => {
     const [shortTitle, setShortTitle] = useState('');
     const [shortDesc, setShortDesc] = useState('');
     const [deliveryTime, setDeliveryTime] = useState(0);
-  
+    const [selectedCategory, setSelectedCategory] = useState('');
+
     const handleServiceSubmit = async () => {
 
       try {
@@ -35,14 +58,22 @@ const ServiceForm = ({ onSubmit }) => {
         formData.append('title', title);
         formData.append('desc', desc);
         formData.append('totalStars', totalStars);
-        formData.append('catid', catid);
-        formData.append('cat', cat);
+        // formData.append('catid', catid);
+        // formData.append('cat', cat);
         formData.append('price', price);
         formData.append('shortTitle', shortTitle);
         formData.append('shortDesc', shortDesc);
         formData.append('deliveryTime', deliveryTime);
         formData.append('userId', GetUser()._id);
         formData.append('role', GetUser().Role);
+        if (selectedCategory) {
+          const selectedCategoryObject = categories.find(category => category._id === selectedCategory);
+          if (selectedCategoryObject) {
+            formData.append('catid', selectedCategoryObject._id);
+            formData.append('cat', selectedCategoryObject.title);
+          }
+        }
+  
 
 
         for (let i = 0; i < images.length; i++) {
@@ -109,22 +140,24 @@ const ServiceForm = ({ onSubmit }) => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           />
-
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Total Stars
-          </Typography>
-          <Input
-            type="number"
-            size="lg"
-            placeholder="Total Stars"
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            value={totalStars}
-            onChange={(e) => setTotalStars(Number(e.target.value))}
-          />
+        Category
+      </Typography>
+      <select
+        size="lg"
+        className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+      >
+        <option value="">Select Category</option>
+        {categories.map(category => (
+          <option key={category._id} value={category._id}>
+            {category.title}
+          </option>
+        ))}
+      </select>
 
+{/* 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Category ID
           </Typography>
@@ -151,10 +184,10 @@ const ServiceForm = ({ onSubmit }) => {
             }}
             value={cat}
             onChange={(e) => setCat(e.target.value)}
-          />
+          /> */}
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Price
+            Price per hour
           </Typography>
           <Input
             size="lg"
@@ -210,20 +243,6 @@ const ServiceForm = ({ onSubmit }) => {
             onChange={(e) => setShortDesc(e.target.value)}
           />
 
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Delivery Time (in hours)
-          </Typography>
-          <Input
-            type="number"
-            size="lg"
-            placeholder="Delivery Time"
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            value={deliveryTime}
-            onChange={(e) => setDeliveryTime(Number(e.target.value))}
-          />
 
         </div>
 

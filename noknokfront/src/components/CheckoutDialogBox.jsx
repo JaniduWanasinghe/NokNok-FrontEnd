@@ -13,8 +13,9 @@ import {
 } from "@material-tailwind/react";
 import CheckoutForm from "./CheckoutForm";
  
-export function ChheckoutDialogBox({status,handleopen}) {
+export function ChheckoutDialogBox({status,handleopen,total}) {
 const open=status 
+console.log(total)
   return (
     <>
     
@@ -25,7 +26,7 @@ const open=status
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
-         <CheckoutForm/>
+         <CheckoutForm total={total}/>
         </Card>
       </Dialog>
     </>
