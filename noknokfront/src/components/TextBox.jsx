@@ -27,16 +27,16 @@ const handleOpen3 = () => setOpen3((cur) => !cur);
 
   return (
     <div className='pl-5'>
-<div className='flex gap-5 w-full '>
-  <div className='border-r-2 border-blue-gray-700'>
+<div className='flex justify-evenly mb-5 w-full '>
+  <div className='border-r-2  pr-5'>
 <h3>{service.price}/=</h3>
 <p>Hourly Rate</p>
   </div>
-  <div className='border-r-2'>
+  <div className='border-r-2 pr-5'>
   <h3>{service.totalStars}</h3>
 <p>stars</p>
   </div>
-  <div className='border-r-2'>
+  <div className='border-r-2 pr-5'>
   <h3>{service.sales}</h3>
 <p>Sales</p>
   </div>
