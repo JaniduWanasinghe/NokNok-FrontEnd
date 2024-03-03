@@ -43,7 +43,7 @@ const handleOpen3 = () => setOpen3((cur) => !cur);
 </div>
 <BlockLevelButton text={"send a message"} handleopen={handleOpen}/>
 <DialogWithForm status={open} handleopen={handleOpen} buyerId={GetUser()._id} sellerId={service.userId}/>
-<HireserviceDialogBox rate={service.price} status={open2} handleopen={handleOpen2} handleSwitch={handleSwitch} setTotal={setTotal}/>
+<HireserviceDialogBox rate={service.price} status={open2} handleopen={handleOpen2} handleSwitch={handleSwitch} serviceId={service._id} setTotal={setTotal}/>
 <ChheckoutDialogBox rate={service.price} status={open3} total={total} handleopen={handleOpen3}/>
 <ProfileCard/>
 <BlockLevelButton text={"Hire a service"} handleopen={handleOpen2}/>

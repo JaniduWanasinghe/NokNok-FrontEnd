@@ -296,12 +296,13 @@ export function NavbarWithMegaMenu() {
           {isLoggedIn() ? (
             <>
             <div className="flex items-center gap-8">
+              <a href="/Conversations">
              <Badge >
         <IconButton>
           <EnvelopeIcon className="h-4 w-4" />
         </IconButton>
       </Badge>
-      
+      </a>
               <span className="text-sm text-blue-gray-500 mr-2">
                 {/* Display user name here */}
                 {JSON.parse(localStorage.getItem('user')).username}
