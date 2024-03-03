@@ -18,6 +18,7 @@ import Conversastions from './Pages/Conversastions'
 import Chat from './Pages/Chat'
 import Categories from './Pages/Categories'
 import Services from './Pages/Services'
+import AllhiredServices from './Pages/AllhiredServices'
 const socket = io('http://localhost:8800'); // Update with your server URL
 
 
@@ -82,6 +83,10 @@ function App() {
       {
         path:"/Conversations/chat/:id",element:
   <Chat/>
+      },
+      {
+        path:"/hired",element:
+  <AllhiredServices/>
       }
     ]
     }])

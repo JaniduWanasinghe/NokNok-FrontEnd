@@ -31,14 +31,13 @@ export default function AllServices() {
   }, []);
 
   const TABLE_ROWS = services.map((service) => ({
-    // Map the service properties to the table row properties
-    // Adjust this based on your service model structure
+
     id: service._id,
     title: service.title,
     description: service.shortDesc,
     cover:getPublicUrl(service.cover)
-    // ... add other fields as needed
   }));
+  const TABLE_HEAD = ["","Title", "Short description", "action", ""];
 
   return (
     <div className='w-full flex flex-col justify-center items-center mt-16 p-5'>
@@ -46,7 +45,7 @@ export default function AllServices() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <TableWithStripedRows TABLE_ROWS={TABLE_ROWS} />
+        <TableWithStripedRows TABLE_ROWS={TABLE_ROWS} TABLE_HEAD={TABLE_HEAD} />
       )}
     </div>
   );
