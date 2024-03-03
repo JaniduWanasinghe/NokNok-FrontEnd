@@ -36,7 +36,10 @@ export default function AllhiredServices() {
         title: service.title,
         total:service.total,
         location:service.location,
-
+        buyerId:service.buyerId,
+        sellerId:service.sellerId,
+        review:service.review,
+        rating:service.rating,
         status:service.status,
         cover: getPublicUrl(service.cover),
         payment:service.payment
