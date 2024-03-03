@@ -4,9 +4,27 @@ import newRequest from '../utils/newRequest';
 import { CardHeader, Input, Typography } from '@material-tailwind/react';
 import { CreditCardIcon } from '@heroicons/react/24/outline';
 import { GetUser } from '../utils/handleUser';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function CheckoutForm({ total }) {
+
+
+export default function CheckoutForm({ total,taskid }) {
+  const navigate = useNavigate();
+  const updateHiredTaskPaymentStatus = async (taskId, newPaymentStatus) => {
+    try {
+      const response = await newRequest.patch(`hired-tasks/update-payment-status/${taskId}`, {
+        newPaymentStatus,
+      });
+  
+      console.log('Backend response:', response.data);
+      navigate('/')
+      // return response.data;
+    } catch (error) {
+      console.error('Error updating payment status:', error);
+      throw error; 
+    }
+  };
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState('');
@@ -46,6 +64,7 @@ const  [pstatus,setPstatus]=useState(false)
         // Handle the error (e.g., display an error message to the user)
       } else if (paymentIntent.status === 'succeeded') {
         console.log(paymentIntent);
+        updateHiredTaskPaymentStatus(taskid,"Paid")
         // Payment successful, handle accordingly
       }
     } catch (error) {

@@ -13,6 +13,7 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios"; // Import Axios library or use your preferred HTTP client
 import { GetUser } from "../utils/handleUser";
+import newRequest from "../utils/newRequest";
 
 export function HireserviceDialogBox({
   status,
@@ -20,7 +21,7 @@ export function HireserviceDialogBox({
   handleSwitch,
   setTotal,
   rate,
-  serviceId
+  service
 }) {
   const open = status;
   const [hours, setHours] = useState(0);
@@ -36,19 +37,20 @@ export function HireserviceDialogBox({
       hours,
       message,
       user: GetUser(),
-      serviceId
+      service,
+      total:(rate * hours).toFixed(2)
 
     };
 
     try {
       // Make an HTTP POST request to your backend API endpoint
-      const response = await axios.post("/your-backend-api-endpoint", formData);
+      const response = await newRequest.post("hired-tasks/create", formData);
 
       // Handle the response from the backend if needed
       console.log("Backend response:", response.data);
 
       // Switch to the desired state after successful form submission
-      handleSwitch();
+      handleSwitch(response.data._id);
     } catch (error) {
       // Handle any errors that occur during the HTTP request
       console.error("Error submitting form:", error);

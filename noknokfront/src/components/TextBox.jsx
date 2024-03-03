@@ -9,7 +9,10 @@ import { GetUser } from '../utils/handleUser'
 export const TextBox = ({service}) => {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+
   const[total,setTotal]=useState(0)
+  const[taskid,setTaskid]=useState("")
+
 const handleOpen = () => setOpen((cur) => !cur);
 const handleOpen2 = () => {
 
@@ -17,9 +20,10 @@ const handleOpen2 = () => {
 
 };
 
-const handleSwitch=()=>{
+const handleSwitch=(id)=>{
  handleOpen2()
     handleOpen3()
+    setTaskid(id)
     
 }
 const [open3, setOpen3] = React.useState(false);
@@ -43,8 +47,8 @@ const handleOpen3 = () => setOpen3((cur) => !cur);
 </div>
 <BlockLevelButton text={"send a message"} handleopen={handleOpen}/>
 <DialogWithForm status={open} handleopen={handleOpen} buyerId={GetUser()._id} sellerId={service.userId}/>
-<HireserviceDialogBox rate={service.price} status={open2} handleopen={handleOpen2} handleSwitch={handleSwitch} serviceId={service._id} setTotal={setTotal}/>
-<ChheckoutDialogBox rate={service.price} status={open3} total={total} handleopen={handleOpen3}/>
+<HireserviceDialogBox rate={service.price} status={open2} handleopen={handleOpen2} handleSwitch={handleSwitch} service={service} setTotal={setTotal}/>
+<ChheckoutDialogBox rate={service.price} status={open3} total={total} handleopen={handleOpen3} taskid={taskid}/>
 <ProfileCard/>
 <BlockLevelButton text={"Hire a service"} handleopen={handleOpen2}/>
     </div>
