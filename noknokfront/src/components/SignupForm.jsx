@@ -16,26 +16,33 @@ export function SimpleSignupForm() {
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
   const [phone, setPhone] = useState('');
-
+  const [cover, setCover] = useState(null); 
+  const [role, setRole] = useState('customer');
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:8800/api/auth/register', {
-        email,
-        username,
-        password,
-        country,
-        phone,
-      });
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('username', username);
+      formData.append('country', country);
+      formData.append('password', password);
+      formData.append('phone', "phone");
+      formData.append('role', role); 
+
+      formData.append('image', cover);
+
+      const response = await axios.post('http://localhost:8800/api/auth/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }});
 
       const data = response.data;
       console.log(data);
 
       // Assume `data` contains user information from the server response
       const userInfo = data;
-      localStorage.setItem('user', JSON.stringify(userInfo));
 
       // Redirect to the home page
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       // Handle error, e.g., show an error message
       console.error('Signup failed', error);
@@ -109,6 +116,14 @@ export function SimpleSignupForm() {
             onChange={(e) => setCountry(e.target.value)}
           />
 
+<Typography variant="h6" color="blue-gray" className="-mb-3">
+            Cover Image
+          </Typography>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setCover(e.target.files[0])}
+          />
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Phone Number
           </Typography>
@@ -122,6 +137,17 @@ export function SimpleSignupForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Role
+      </Typography>
+      <select
+        className="!border-t-blue-gray-200 focus:!border-t-gray-900 p-2"
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+      >
+        <option value="customer">Customer</option>
+        <option value="provider">Provider</option>
+      </select>
         </div>
         <Checkbox
           label={
