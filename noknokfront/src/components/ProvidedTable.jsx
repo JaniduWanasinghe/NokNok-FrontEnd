@@ -3,30 +3,24 @@ import newRequest from "../utils/newRequest";
 import { ReviewDialog } from "./ReviewDialog";
 import React, { useState } from "react";
 import { GetUser } from "../utils/handleUser";
+import { NoteDialog } from "./NoteDoialogBox";
 
  
 
  
-export function HiredTable({TABLE_ROWS,TABLE_HEAD}) {
+export function ProvidedTable({TABLE_ROWS,TABLE_HEAD}) {
 
     const [open, setOpen] = React.useState(false);
-    const [sid, setSid] = React.useState(false);
+    const [servicedata, setService]= React.useState();
 
-    const handleOpen = (id) => {
-        setSid(id)
+    const handleOpen = (servicedata) => {
+        setService(servicedata)
+        console.log(servicedata)
         setOpen((cur) => !cur)};
 
 
     const updateHiredstatus = async (taskId, status) => {
-        if(status==="Accepted"){
-            status="processing"
-        }
-        else if(status=="processing"){
-            status="done"
-        }
-        else{
-            return 0;
-        }
+ 
         try {
           const response = await newRequest.patch(`hired-tasks/change-status/${taskId}`, {
             status,
@@ -43,7 +37,7 @@ export function HiredTable({TABLE_ROWS,TABLE_HEAD}) {
       };
   return (
     <div>
-        <ReviewDialog status={open} handleopen={handleOpen} id={sid}/>
+        <NoteDialog status={open} handleopen={handleOpen} service={servicedata}/>
    
     <Card className="h-full w-full overflow-auto flex justify-center items-center">
 
@@ -64,7 +58,7 @@ export function HiredTable({TABLE_ROWS,TABLE_HEAD}) {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ title, id, total,cover,location,status,payment,sellerId,buyerId,review }, index) => (
+          {TABLE_ROWS.map(({ title, id, total,cover,location,status,payment,sellerId,buyerId,review ,rating,note}, index) => (
             <tr key={title} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                 <img
@@ -91,9 +85,9 @@ export function HiredTable({TABLE_ROWS,TABLE_HEAD}) {
                 </Typography>
               </td>
               <td className="p-4">
-                <button onClick={()=>updateHiredstatus(id,status)}>
+              
                 {status==="done"?<Chip color="green" value={status}/>:(status==="pending"?(<Chip color="amber" value={status}/>):<Chip color="blue" value={status} />)}
-                </button>
+              
                 {/* <Typography variant="small" color="blue-gray" className="font-normal">
                   {status}
                 </Typography> */}
@@ -105,9 +99,14 @@ export function HiredTable({TABLE_ROWS,TABLE_HEAD}) {
               </td>
 
               <td className="p-4">
-                {buyerId===GetUser()._id?<Button onClick={()=>handleOpen(id)}>Add Review</Button>:(<Button onClick={handleOpen}>Show Review</Button>)
-}
+                <Button onClick={()=>handleOpen({id:id,review:review,rating:rating,note:note})}>Show Note</Button>
+
               </td>
+              
+{status==="pending" && (<td className="p-4">
+                <Button onClick={()=>updateHiredstatus(id,"Accepted")} className="mr-3 " color="blue">Accept</Button>
+                <Button onClick={()=>updateHiredstatus(id,"Rejected")} color="red">Reject</Button>
+              </td>)}
                </tr>
           ))}
         </tbody>

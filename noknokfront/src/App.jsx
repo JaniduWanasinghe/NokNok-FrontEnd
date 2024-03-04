@@ -19,7 +19,7 @@ import Chat from './Pages/Chat'
 import Categories from './Pages/Categories'
 import Services from './Pages/Services'
 import AllhiredServices from './Pages/AllhiredServices'
-const socket = io('http://localhost:8800'); // Update with your server URL
+import AllProvidedServices from './Pages/AllProvidedServices'
 
 
 
@@ -27,14 +27,14 @@ function App() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    socket.on('notification', (message) => {
-      setNotifications((prevNotifications) => [...prevNotifications, message]);
-      console.log(notifications)
-    });
+    const socket = io('http://localhost:8800'); // Update with your server URL
+console.log(socket.on("first event",(msg)=>{
+console.log(msg)
+}))
+  
+   
 
-    return () => {
-      socket.disconnect();
-    };
+
   }, []);
   const router= createBrowserRouter(
     [{
@@ -87,6 +87,10 @@ function App() {
       {
         path:"/hired",element:
   <AllhiredServices/>
+      },
+      {
+        path:"/provided",element:
+  <AllProvidedServices/>
       }
     ]
     }])

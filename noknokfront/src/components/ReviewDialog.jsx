@@ -12,7 +12,7 @@ export function ReviewDialog({ status, handleopen,id }) {
     try {
    
         const response = await newRequest.post(`hired-tasks/add-review/${id}`, {
-          review,
+          reviews:review,
           totalStars:rating
           });
     
