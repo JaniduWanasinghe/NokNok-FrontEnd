@@ -20,22 +20,41 @@ import Categories from './Pages/Categories'
 import Services from './Pages/Services'
 import AllhiredServices from './Pages/AllhiredServices'
 import AllProvidedServices from './Pages/AllProvidedServices'
+import Report from './Pages/Report'
+import { GetUser } from './utils/handleUser'
+import Notification from './components/Notification'
 
 
 
 function App() {
   const [notifications, setNotifications] = useState([]);
 
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+
+  const [socket, setSocket] = useState(null);
+
   useEffect(() => {
-    const socket = io('http://localhost:8800'); // Update with your server URL
-console.log(socket.on("first event",(msg)=>{
-console.log(msg)
-}))
-  
-   
-
-
+    setSocket(io("http://localhost:8800"));
   }, []);
+
+  useEffect(() => {
+    socket?.emit("newUser", GetUser()._id);
+  }, [socket]);
+
+
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      console.log(data)
+      setNotificationMessage('You received a new job!');
+      const timeout = setTimeout(() => {
+        setNotificationMessage('');
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+
+    });
+  }, [socket]);
   const router= createBrowserRouter(
     [{
       path:"/",
@@ -91,12 +110,18 @@ console.log(msg)
       {
         path:"/provided",element:
   <AllProvidedServices/>
+      },
+      {
+        path:"/report/add",element:
+  <Report/>
       }
     ]
     }])
   return (
     <> 
     <RouterProvider router={router}/>
+    <Notification message={notificationMessage} />
+
     </>
   )
 }

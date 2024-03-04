@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -14,6 +14,8 @@ import {
 import axios from "axios"; // Import Axios library or use your preferred HTTP client
 import { GetUser } from "../utils/handleUser";
 import newRequest from "../utils/newRequest";
+import io from 'socket.io-client';
+
 
 export function HireserviceDialogBox({
   status,
@@ -27,6 +29,14 @@ export function HireserviceDialogBox({
   const [hours, setHours] = useState(0);
   const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    setSocket(io("http://localhost:8800"));
+  }, []);
+  useEffect(() => {
+    socket?.emit("newUser", GetUser()._id);
+  }, [socket]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +58,9 @@ export function HireserviceDialogBox({
 
       // Handle the response from the backend if needed
       console.log("Backend response:", response.data);
-
+socket.emit("sendNotification",{
+  senderName:GetUser()._id, receiverName:service.userId, type:1
+})
       // Switch to the desired state after successful form submission
       handleSwitch(response.data._id);
     } catch (error) {
