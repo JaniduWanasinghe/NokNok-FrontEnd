@@ -45,43 +45,15 @@ const navListMenuItems = [
     title: "Hired",
     description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
-    link:"/buyer/hired"
+    link:"/hired"
   },
   {
-    title: "service3",
+    title: "profile",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
+    link:"/profile"
   },
-  {
-    title: "Services4",
-    description: "Learn how we can help you achieve your goals.",
-    icon: SunIcon,
-  },
-  {
-    title: "service5",
-    description: "Reach out to us for assistance or inquiries",
-    icon: GlobeAmericasIcon,
-  },
-  {
-    title: "Contact",
-    description: "Find the perfect solution for your needs.",
-    icon: PhoneIcon,
-  },
-  {
-    title: "News",
-    description: "Read insightful articles, tips, and expert opinions.",
-    icon: NewspaperIcon,
-  },
-  {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: RectangleGroupIcon,
-  },
-  {
-    title: "Special Offers",
-    description: "Explore limited-time deals and bundles",
-    icon: TagIcon,
-  },
+ 
 ];
  
 
@@ -90,7 +62,7 @@ const navListMenuItemsProvider = [
     title: "Create a Service",
     description: "Create a new service",
     icon: SquaresPlusIcon,
-    link:"/service/create"
+    link:"/service/add"
   },
   {
     title: "All Services",
@@ -102,6 +74,7 @@ const navListMenuItemsProvider = [
     title: "Tasks",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
+    link:"/provided"
   },
 
 ];
@@ -304,8 +277,9 @@ export function NavbarWithMegaMenu() {
       </Badge>
       </a>
               <span className="text-sm text-blue-gray-500 mr-2">
-                {/* Display user name here */}
+                <a href="/profile">
                 {JSON.parse(localStorage.getItem('user')).username}
+                </a>
               </span>
               <Button variant="text" size="sm" color="blue" onClick={handleLogout}>
                 Logout
@@ -314,12 +288,16 @@ export function NavbarWithMegaMenu() {
             </>
           ) : (
             <>
+            <a href="/login">
               <Button variant="text" size="sm" color="blue">
                 Log In
               </Button>
+              </a>
+              <a href="/signup">
               <Button variant="gradient" className="bg-black text-white" size="sm">
                 Sign In
               </Button>
+              </a>
             </>
           )}
         </div>
@@ -339,12 +317,16 @@ export function NavbarWithMegaMenu() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Log In
-          </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-            Sign In
-          </Button>
+        <a href="/login">
+              <Button variant="text" size="sm" color="blue">
+                Log In
+              </Button>
+              </a>
+              <a href="/signup">
+              <Button variant="gradient" className="bg-black text-white" size="sm">
+                Sign In
+              </Button>
+              </a>
         </div>
       </Collapse>
     </Navbar>

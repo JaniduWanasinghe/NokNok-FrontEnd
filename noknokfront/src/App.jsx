@@ -23,6 +23,7 @@ import AllProvidedServices from './Pages/AllProvidedServices'
 import Report from './Pages/Report'
 import { GetUser } from './utils/handleUser'
 import Notification from './components/Notification'
+import Profile from './Pages/Profile'
 
 
 
@@ -39,7 +40,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    socket?.emit("newUser", GetUser()._id);
+    if(GetUser()){
+      socket?.emit("newUser", GetUser()._id);
+
+    }
   }, [socket]);
 
 
@@ -114,6 +118,10 @@ function App() {
       {
         path:"/report/add",element:
   <Report/>
+      },
+      {
+        path:"/profile",element:
+  <Profile/>
       }
     ]
     }])
