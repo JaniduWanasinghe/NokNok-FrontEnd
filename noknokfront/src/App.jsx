@@ -18,23 +18,47 @@ import Conversastions from './Pages/Conversastions'
 import Chat from './Pages/Chat'
 import Categories from './Pages/Categories'
 import Services from './Pages/Services'
-const socket = io('http://localhost:8800'); // Update with your server URL
+import AllhiredServices from './Pages/AllhiredServices'
+import AllProvidedServices from './Pages/AllProvidedServices'
+import Report from './Pages/Report'
+import { GetUser } from './utils/handleUser'
+import Notification from './components/Notification'
+import Profile from './Pages/Profile'
 
 
 
 function App() {
   const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    socket.on('notification', (message) => {
-      setNotifications((prevNotifications) => [...prevNotifications, message]);
-      console.log(notifications)
-    });
+  const [notificationMessage, setNotificationMessage] = useState('');
 
-    return () => {
-      socket.disconnect();
-    };
+
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    setSocket(io("http://localhost:8800"));
   }, []);
+
+  useEffect(() => {
+    if(GetUser()){
+      socket?.emit("newUser", GetUser()._id);
+
+    }
+  }, [socket]);
+
+
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      console.log(data)
+      setNotificationMessage('You received a new job!');
+      const timeout = setTimeout(() => {
+        setNotificationMessage('');
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+
+    });
+  }, [socket]);
   const router= createBrowserRouter(
     [{
       path:"/",
@@ -80,14 +104,32 @@ function App() {
   <Conversastions/>
       },
       {
-        path:"/Conversations/chat/",element:
+        path:"/Conversations/chat/:id",element:
   <Chat/>
+      },
+      {
+        path:"/hired",element:
+  <AllhiredServices/>
+      },
+      {
+        path:"/provided",element:
+  <AllProvidedServices/>
+      },
+      {
+        path:"/report/add",element:
+  <Report/>
+      },
+      {
+        path:"/profile",element:
+  <Profile/>
       }
     ]
     }])
   return (
     <> 
     <RouterProvider router={router}/>
+    <Notification message={notificationMessage} />
+
     </>
   )
 }

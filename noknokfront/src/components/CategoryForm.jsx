@@ -34,12 +34,9 @@ export function CreateCategoryForm() {
       const data = response.data;
       console.log(data);
 
-      // Assume `data` contains category information from the server response
 
-      // Redirect to the category list page or perform any other action
       navigate('/categories');
     } catch (error) {
-      // Handle error, e.g., show an error message
       console.error('Category creation failed', error);
     }
   };

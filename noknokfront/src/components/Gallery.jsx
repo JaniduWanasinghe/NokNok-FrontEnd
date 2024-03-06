@@ -4,6 +4,7 @@ export function FeaturedImageGallery({images}) {
   const data = Array.isArray(images)
   ? images.map((image) => getPublicUrl(image))
   : [];
+  console.log(data)
   const dataq = [
     {
       imgelink:
@@ -40,7 +41,7 @@ data[0]  );
         />
       </div>
       <div className="grid grid-cols-5 gap-4">
-        {data.map(({ imgelink }, index) => (
+        {data.map(( imgelink, index) => (
           <div key={index}>
             <img
               onClick={() => setActive(imgelink)}

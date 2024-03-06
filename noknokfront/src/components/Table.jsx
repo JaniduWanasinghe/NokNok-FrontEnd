@@ -1,9 +1,8 @@
 import { Card, Typography } from "@material-tailwind/react";
  
-const TABLE_HEAD = ["","Title", "Short description", "action", ""];
 
  
-export function TableWithStripedRows({TABLE_ROWS}) {
+export function TableWithStripedRows({TABLE_ROWS,TABLE_HEAD}) {
   return (
     <Card className="h-full w-full overflow-auto flex justify-center items-center">
       <table className="w-full min-w-max table-auto text-left max-w-5xl">
@@ -23,7 +22,7 @@ export function TableWithStripedRows({TABLE_ROWS}) {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ title, id, description,cover }, index) => (
+          {TABLE_ROWS.map(({ title, id, description,cover,location }, index) => (
             <tr key={title} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                 <img
@@ -46,6 +45,11 @@ export function TableWithStripedRows({TABLE_ROWS}) {
               <td className="p-4">
                 <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
                   Edit
+                </Typography>
+              </td>
+              <td className="p-4">
+                <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
+                  Delete
                 </Typography>
               </td>
             </tr>

@@ -32,53 +32,28 @@ import {
 } from "@heroicons/react/24/solid";
 import Logo from "./Logo";
 import axios from "axios";
- 
+import { useNavigate } from "react-router";
+
 const navListMenuItems = [
   {
-    title: "service1",
+    title: "Categories",
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
+    link:"/categories"
   },
   {
-    title: "service2",
+    title: "Hired",
     description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
+    link:"/hired"
   },
   {
-    title: "service3",
+    title: "profile",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
+    link:"/profile"
   },
-  {
-    title: "Services4",
-    description: "Learn how we can help you achieve your goals.",
-    icon: SunIcon,
-  },
-  {
-    title: "service5",
-    description: "Reach out to us for assistance or inquiries",
-    icon: GlobeAmericasIcon,
-  },
-  {
-    title: "Contact",
-    description: "Find the perfect solution for your needs.",
-    icon: PhoneIcon,
-  },
-  {
-    title: "News",
-    description: "Read insightful articles, tips, and expert opinions.",
-    icon: NewspaperIcon,
-  },
-  {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: RectangleGroupIcon,
-  },
-  {
-    title: "Special Offers",
-    description: "Explore limited-time deals and bundles",
-    icon: TagIcon,
-  },
+ 
 ];
  
 
@@ -87,50 +62,42 @@ const navListMenuItemsProvider = [
     title: "Create a Service",
     description: "Create a new service",
     icon: SquaresPlusIcon,
-    link:"/service/create"
+    link:"/service/add"
   },
   {
     title: "All Services",
     description: "Get all services",
-    icon: UserGroupIcon,
+    icon: UserGroupIcon, link:"/service/all"
+
   },
   {
-    title: "service3",
+    title: "Tasks",
+    description: "Find the perfect solution for your needs.",
+    icon: Bars4Icon,
+    link:"/provided"
+  },
+
+];
+const navListMenuItemsAdmin = [
+  {
+    title: "Create a Service",
+    description: "Create a new service",
+    icon: SquaresPlusIcon,
+    link:"/category/add"
+  },
+  {
+    title: "All Ctegories",
+    description: "Get all Categories",
+    icon: UserGroupIcon, link:"/categories/all"
+
+  },
+  {
+    title: "Reports",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
   },
-  {
-    title: "Services4",
-    description: "Learn how we can help you achieve your goals.",
-    icon: SunIcon,
-  },
-  {
-    title: "service5",
-    description: "Reach out to us for assistance or inquiries",
-    icon: GlobeAmericasIcon,
-  },
-  {
-    title: "Contact",
-    description: "Find the perfect solution for your needs.",
-    icon: PhoneIcon,
-  },
-  {
-    title: "News",
-    description: "Read insightful articles, tips, and expert opinions.",
-    icon: NewspaperIcon,
-  },
-  {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: RectangleGroupIcon,
-  },
-  {
-    title: "Special Offers",
-    description: "Explore limited-time deals and bundles",
-    icon: TagIcon,
-  },
+
 ];
- 
 
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -140,6 +107,9 @@ let ListItems=navListMenuItems
 if(user){
   if(user.Role==='provider'){
     ListItems=navListMenuItemsProvider
+  }
+  if(user.Role==='Admin'){
+    ListItems=navListMenuItemsAdmin
   }
 }
 
@@ -224,7 +194,7 @@ function NavList() {
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
         as="a"
-        href="#"
+        href="/"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -234,7 +204,7 @@ function NavList() {
       <NavListMenu />
       <Typography
         as="a"
-        href="#"
+        href="/contact"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -245,7 +215,7 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="#"
+        href="/about"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -259,6 +229,7 @@ function NavList() {
 }
  
 export function NavbarWithMegaMenu() {
+  const navigate=useNavigate()
   const isLoggedIn = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     return !!user; 
@@ -298,15 +269,17 @@ export function NavbarWithMegaMenu() {
           {isLoggedIn() ? (
             <>
             <div className="flex items-center gap-8">
+              <a href="/Conversations">
              <Badge >
         <IconButton>
           <EnvelopeIcon className="h-4 w-4" />
         </IconButton>
       </Badge>
-      
+      </a>
               <span className="text-sm text-blue-gray-500 mr-2">
-                {/* Display user name here */}
+                <a href="/profile">
                 {JSON.parse(localStorage.getItem('user')).username}
+                </a>
               </span>
               <Button variant="text" size="sm" color="blue" onClick={handleLogout}>
                 Logout
@@ -315,12 +288,16 @@ export function NavbarWithMegaMenu() {
             </>
           ) : (
             <>
+            <a href="/login">
               <Button variant="text" size="sm" color="blue">
                 Log In
               </Button>
+              </a>
+              <a href="/signup">
               <Button variant="gradient" className="bg-black text-white" size="sm">
                 Sign In
               </Button>
+              </a>
             </>
           )}
         </div>
@@ -340,12 +317,16 @@ export function NavbarWithMegaMenu() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Log In
-          </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-            Sign In
-          </Button>
+        <a href="/login">
+              <Button variant="text" size="sm" color="blue">
+                Log In
+              </Button>
+              </a>
+              <a href="/signup">
+              <Button variant="gradient" className="bg-black text-white" size="sm">
+                Sign In
+              </Button>
+              </a>
         </div>
       </Collapse>
     </Navbar>
