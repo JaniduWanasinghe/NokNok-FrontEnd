@@ -4,11 +4,12 @@ import { GetUser } from '../utils/handleUser';
 import { HiredTable } from '../components/hiredTable';
 import { getPublicUrl } from '../utils/PublicUrl';
 import { ProvidedTable } from '../components/ProvidedTable';
+import useProvider from '../hooks/useProvider';
 
 export default function AllProvidedServices() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-
+useProvider()
 
     useEffect(() => {
         const fetchServices = async () => {
