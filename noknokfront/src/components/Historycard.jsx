@@ -5,32 +5,10 @@ import { HiredTable } from '../components/hiredTable';
 import { getPublicUrl } from '../utils/PublicUrl';
 import { HistoryTable } from './HistoryTable';
 
-export default function HistoryCard() {
-    const [services, setServices] = useState([]);
-    const [loading, setLoading] = useState(true);
+export default function HistoryCard({services,loading}) {
 
 
-    useEffect(() => {
-        const fetchServices = async () => {
-          try {
-            const response =await newRequest.get(`hired-tasks/by-user/${GetUser()._id}`,{
-                params: {
-                    userId: GetUser()._id, 
-                  },
-            });
-            console.log(response)
-            const servicesData = response.data;
-    
-            setServices(servicesData);
-            setLoading(false);
-          } catch (error) {
-            console.error('Error fetching services', error);
-          }
-        };
-    
-        fetchServices();
-      }, []);
-    
+  
       const TABLE_ROWS = services.map((service) => ({
        
         id: service._id,

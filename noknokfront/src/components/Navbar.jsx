@@ -48,10 +48,10 @@ const navListMenuItems = [
     link:"/hired"
   },
   {
-    title: "profile",
+    title: "Report",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
-    link:"/profile"
+    link:"/report"
   },
  
 ];
