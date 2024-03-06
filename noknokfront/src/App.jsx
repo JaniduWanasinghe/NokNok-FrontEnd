@@ -24,6 +24,11 @@ import Report from './Pages/Report'
 import { GetUser } from './utils/handleUser'
 import Notification from './components/Notification'
 import Profile from './Pages/Profile'
+import AboutUs from './Pages/AboutUs'
+import WhyUs from './Pages/Contactus'
+import ContactUs from './Pages/Contactus'
+import ShowReports from './Pages/showReports'
+import AdminUsersPage from './Pages/AllUsers'
 
 
 
@@ -122,7 +127,25 @@ function App() {
       {
         path:"/profile",element:
   <Profile/>
-      }
+      },
+      {
+        path:"/aboutus",element:
+  <AboutUs/>
+      },
+      {
+        path:"/contactus",element:
+  <ContactUs/>
+      },
+      {
+        path:"/reports/all",element:
+  <ShowReports/>
+      
+    },
+    {
+      path:"/users/all",element:
+<AdminUsersPage/>
+    }
+
     ]
     }])
   return (

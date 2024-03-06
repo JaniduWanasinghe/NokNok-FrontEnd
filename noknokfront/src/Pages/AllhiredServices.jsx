@@ -3,11 +3,13 @@ import newRequest from '../utils/newRequest';
 import { GetUser } from '../utils/handleUser';
 import { HiredTable } from '../components/hiredTable';
 import { getPublicUrl } from '../utils/PublicUrl';
+import useProvider from '../hooks/useProvider';
+import useCustomer from '../hooks/useCustomer';
 
 export default function AllhiredServices() {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-
+useCustomer()
 
     useEffect(() => {
         const fetchServices = async () => {
