@@ -29,6 +29,7 @@ import WhyUs from './Pages/Contactus'
 import ContactUs from './Pages/Contactus'
 import ShowReports from './Pages/showReports'
 import AdminUsersPage from './Pages/AllUsers'
+import UpdateService from './Pages/UpdateService'
 
 
 
@@ -144,6 +145,10 @@ function App() {
     {
       path:"/users/all",element:
 <AdminUsersPage/>
+    },
+    {
+      path:"/service/update/:serviceId",element:
+<UpdateService/>
     }
 
     ]
