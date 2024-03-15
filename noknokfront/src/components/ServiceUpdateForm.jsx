@@ -16,13 +16,38 @@ const UpdateServiceForm = ({serviceId}) => {
 
   const [service, setService] = useState({});
   const [categories, setCategories] = useState([]);
-
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
+  const [totalStars, setTotalStars] = useState(0);
+  const [catid, setCatId] = useState('');
+  const [cat, setCat] = useState('');
+  const [price, setPrice] = useState('');
+  const [images, setImages] = useState([]);
+  const [shortTitle, setShortTitle] = useState('');
+  const [shortDesc, setShortDesc] = useState('');
+  const [deliveryTime, setDeliveryTime] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('');
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const response = await newRequest.get(`/service/${serviceId}`);
+        const response = await newRequest.get(`/service/single/${serviceId}`);
         const serviceData = response.data;
+        console.log(serviceData)
         setService(serviceData);
+        if (serviceData) {
+          setService(serviceData);
+          setTitle(serviceData.title || '');
+          setDesc(serviceData.desc || '');
+          setTotalStars(serviceData.totalStars || 0);
+          setCatId(serviceData.catid || '');
+          setCat(serviceData.cat || '');
+          setPrice(serviceData.price || '');
+          setImages(serviceData.images || []);
+          setShortTitle(serviceData.shortTitle || '');
+          setShortDesc(serviceData.shortDesc || '');
+          setDeliveryTime(serviceData.deliveryTime || 0);
+          setSelectedCategory(serviceData.catid || '');
+        }
       } catch (error) {
         console.error('Error fetching service:', error);
       }
@@ -42,24 +67,13 @@ const UpdateServiceForm = ({serviceId}) => {
     fetchCategories();
   }, [serviceId]);
 
-  const [title, setTitle] = useState(service.title || '');
-  const [desc, setDesc] = useState(service.desc || '');
-  const [totalStars, setTotalStars] = useState(service.totalStars || 0);
-  const [catid, setCatId] = useState(service.catid || '');
-  const [cat, setCat] = useState(service.cat || '');
-  const [price, setPrice] = useState(service.price || '');
-  const [images, setImages] = useState([]);
-  const [shortTitle, setShortTitle] = useState(service.shortTitle || '');
-  const [shortDesc, setShortDesc] = useState(service.shortDesc || '');
-  const [deliveryTime, setDeliveryTime] = useState(service.deliveryTime || 0);
-  const [selectedCategory, setSelectedCategory] = useState(service.catid || '');
+
 
   const handleServiceUpdate = async () => {
     try {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('desc', desc);
-      formData.append('totalStars', totalStars);
       formData.append('catid', catid);
       formData.append('cat', cat);
       formData.append('price', price);
@@ -69,14 +83,7 @@ const UpdateServiceForm = ({serviceId}) => {
       formData.append('userId', GetUser()._id);
       formData.append('role', GetUser().Role);
 
-      if (selectedCategory) {
-        const selectedCategoryObject = categories.find(category => category._id === selectedCategory);
-        if (selectedCategoryObject) {
-          formData.append('catid', selectedCategoryObject._id);
-          formData.append('cat', selectedCategoryObject.title);
-        }
-      }
-
+  
       for (let i = 0; i < images.length; i++) {
         formData.append('images', images[i]);
       }
@@ -135,23 +142,38 @@ const UpdateServiceForm = ({serviceId}) => {
             onChange={(e) => setDesc(e.target.value)}
           />
 
-          {/* Add more form fields here similar to the creation form */}
-          {/* For example: */}
-          {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
+   
+
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
             Category
+          </Typography>
+          <select
+            className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full p-3 border rounded"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="">Select Category</option>
+            {categories.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.title}
+              </option>
+            ))}
+          </select>
+
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+            Price
           </Typography>
           <Input
             size="lg"
-            placeholder="Category"
+            placeholder="Price"
             className="!border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: "before:content-none after:content-none",
             }}
-            value={cat}
-            onChange={(e) => setCat(e.target.value)}
-          /> */}
-
-          {/* Add more form fields here as needed */}
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Short Description
@@ -166,6 +188,31 @@ const UpdateServiceForm = ({serviceId}) => {
             value={shortDesc}
             onChange={(e) => setShortDesc(e.target.value)}
           />
+
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+            Delivery Time
+          </Typography>
+          <Input
+            size="lg"
+            placeholder="Delivery Time"
+            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+            type="number"
+            value={deliveryTime}
+            onChange={(e) => setDeliveryTime(e.target.value)}
+          />
+
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+            Images
+          </Typography>
+          <input
+            type="file"
+            multiple
+            onChange={handleImageChange}
+          />
+
         </div>
 
         <Button className="mt-6 bg-blue-500" fullWidth onClick={handleServiceUpdate}>

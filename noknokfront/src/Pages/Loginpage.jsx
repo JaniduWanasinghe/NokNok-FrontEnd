@@ -101,7 +101,7 @@ console.log(data);
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
           Don't have an account?{" "}
-          <a href="#" className="font-medium text-gray-900">
+          <a href="/signup" className="font-medium text-gray-900">
             Sign up
           </a>
         </Typography>

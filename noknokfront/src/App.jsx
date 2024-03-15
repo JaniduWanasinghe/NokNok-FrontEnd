@@ -30,6 +30,9 @@ import ContactUs from './Pages/Contactus'
 import ShowReports from './Pages/showReports'
 import AdminUsersPage from './Pages/AllUsers'
 import UpdateService from './Pages/UpdateService'
+import HandleAllCategories from './Pages/AllCategories'
+import SearchServices from './Pages/SearchServices'
+
 
 
 
@@ -149,6 +152,14 @@ function App() {
     {
       path:"/service/update/:serviceId",element:
 <UpdateService/>
+    },
+    {
+      path:"/admin/categories/all",element:
+<HandleAllCategories />
+    },
+    {
+      path:"/services/search/:squery",element:
+<SearchServices />
     }
 
     ]

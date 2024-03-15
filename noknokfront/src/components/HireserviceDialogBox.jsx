@@ -23,7 +23,8 @@ export function HireserviceDialogBox({
   handleSwitch,
   setTotal,
   rate,
-  service
+  service,
+  buyerName
 }) {
   const open = status;
   const [hours, setHours] = useState(0);
