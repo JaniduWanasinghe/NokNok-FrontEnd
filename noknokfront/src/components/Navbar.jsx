@@ -34,6 +34,16 @@ import Logo from "./Logo";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
+const navListMenuItemsunauth = [
+  {
+    title: "Categories",
+    description: "Find the perfect solution for your needs.",
+    icon: SquaresPlusIcon,
+    link:"/categories"
+  }
+ 
+];
+
 const navListMenuItems = [
   {
     title: "Categories",
@@ -51,7 +61,7 @@ const navListMenuItems = [
     title: "Report",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
-    link:"/report"
+    link:"/report/add"
   },
  
 ];
@@ -80,7 +90,7 @@ const navListMenuItemsProvider = [
 ];
 const navListMenuItemsAdmin = [
   {
-    title: "Create a Service",
+    title: "Create a Category",
     description: "Create a new service",
     icon: SquaresPlusIcon,
     link:"/category/add"
@@ -88,13 +98,14 @@ const navListMenuItemsAdmin = [
   {
     title: "All Ctegories",
     description: "Get all Categories",
-    icon: UserGroupIcon, link:"/categories/all"
+    icon: UserGroupIcon, link:"/admin/categories/all"
 
   },
   {
     title: "Reports",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
+    link:"/reports/all"
   },
 
 ];
@@ -103,13 +114,16 @@ function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 const user=JSON.parse(localStorage.getItem('user'))
-let ListItems=navListMenuItems
+let ListItems=navListMenuItemsunauth
 if(user){
   if(user.Role==='provider'){
     ListItems=navListMenuItemsProvider
   }
-  if(user.Role==='Admin'){
+  else if(user.Role==='Admin'){
     ListItems=navListMenuItemsAdmin
+  }
+  else{
+    ListItems=navListMenuItems
   }
 }
 
@@ -204,7 +218,7 @@ function NavList() {
       <NavListMenu />
       <Typography
         as="a"
-        href="/contact"
+        href="/contactus"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -215,7 +229,7 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="/about"
+        href="/aboutus"
         variant="small"
         color="blue-gray"
         className="font-medium"

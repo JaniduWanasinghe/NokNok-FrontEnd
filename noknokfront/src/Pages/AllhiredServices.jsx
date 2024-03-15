@@ -13,6 +13,8 @@ useCustomer()
 
     useEffect(() => {
         const fetchServices = async () => {
+        
+
           try {
             const response =await newRequest.get(`hired-tasks/by-user/${GetUser()._id}`,{
                 params: {

@@ -26,7 +26,7 @@ export function SimpleSignupForm() {
       formData.append('country', country);
       formData.append('password', password);
       formData.append('phone', "phone");
-      formData.append('role', role); 
+      formData.append('Role', role); 
 
       formData.append('image', cover);
 
@@ -158,7 +158,7 @@ export function SimpleSignupForm() {
             >
               I agree to the
               <a
-                href="#"
+                href=""
                 className="font-medium transition-colors hover:text-gray-900"
               >
                 &nbsp;Terms and Conditions
@@ -172,7 +172,7 @@ export function SimpleSignupForm() {
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
           Already have an account?{" "}
-          <a href="#" className="font-medium text-gray-900">
+          <a href="/login" className="font-medium text-gray-900">
             Login
           </a>
         </Typography>

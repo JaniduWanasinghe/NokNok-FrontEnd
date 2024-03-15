@@ -4,6 +4,7 @@ import { TextBox } from '../components/TextBox'
 import TextDescription from '../components/TextDescription'
 import { useParams } from 'react-router-dom';
 import newRequest from '../utils/newRequest';
+import ReviewSection from '../components/ReviewSection';
 
 export default function SingleService() {
   const { serviceid } = useParams();
@@ -44,6 +45,10 @@ export default function SingleService() {
 
 </div>
 <TextDescription service={serviceDetails.desc}/>
+
+<div>
+  <ReviewSection serviceId={serviceDetails._id} />
+</div>
 
     </div>
   )
